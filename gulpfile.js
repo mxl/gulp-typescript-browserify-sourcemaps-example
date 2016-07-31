@@ -58,7 +58,7 @@ gulp.task('tsc', ['clean'], function () {
             presets: ['es2015']
         }));
     if (isDevelopment) {
-        stream = stream.pipe(sourcemaps.write('', {sourceRoot: tsSrcPath}));
+        stream = stream.pipe(sourcemaps.write({sourceRoot: tsSrcPath}));
     }
     return stream.pipe(gulp.dest(tsBuildPath));
 });
