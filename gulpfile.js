@@ -42,9 +42,6 @@ var tsProject = typescript.createProject('tsconfig.json');
 
 console.log('Environment: ' + environment);
 
-function getTsStream(src, dest) {
-}
-
 gulp.task('clean', function () {
     return del([buildPath]);
 });
