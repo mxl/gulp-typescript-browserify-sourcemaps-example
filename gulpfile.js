@@ -43,7 +43,14 @@ var tsProject = typescript.createProject('tsconfig.json');
 console.log('Environment: ' + environment);
 
 function getTsStream(src, dest) {
-    var stream = gulp.src(src);
+}
+
+gulp.task('clean', function () {
+    return del([buildPath]);
+});
+
+gulp.task('tsc', ['clean'], function () {
+    var stream = gulp.src([tsGlob]);
     if (isDevelopment) {
         stream = stream
             .pipe(sourcemaps.init());
@@ -56,15 +63,7 @@ function getTsStream(src, dest) {
     if (isDevelopment) {
         stream = stream.pipe(sourcemaps.write('', {sourceRoot: tsSrcPath}));
     }
-    return stream.pipe(gulp.dest(dest));
-}
-
-gulp.task('clean', function () {
-    return del([buildPath]);
-});
-
-gulp.task('tsc', ['clean'], function () {
-    return getTsStream([tsGlob], tsBuildPath);
+    return stream.pipe(gulp.dest(tsBuildPath));
 });
 
 gulp.task('bundle', ['tsc'], function () {
